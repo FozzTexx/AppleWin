@@ -7,19 +7,19 @@ on:
 jobs:
   build:
     runs-on: windows-latest
+
     steps:
       - name: Checkout source
         uses: actions/checkout@v4
 
       - name: Setup MSBuild path
         uses: microsoft/setup-msbuild@v1.1
-	      
+
       - name: Build AppleWin solution
         run: msbuild AppleWin-VS2022.sln /p:Configuration=Release /p:Platform=x64
 
-      - name: Upload executable
+      - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: AppleWin
-          path: |
-            ./out/Release/AppleWin.exe
+          path: ./x64/Release/AppleWin.exe  # Change if output folder is different
