@@ -1,0 +1,22 @@
+name: Build AppleWin
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Build AppleWin solution
+        run: msbuild AppleWin-VS2022.sln /p:Configuration=Release /p:Platform=x64
+
+      - name: Upload executable
+        uses: actions/upload-artifact@v4
+        with:
+          name: AppleWin
+          path: |
+            ./out/Release/AppleWin.exe
